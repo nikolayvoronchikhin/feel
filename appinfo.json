@@ -1,0 +1,18 @@
+{
+  "uuid": "0bd5c218-6917-485d-9a5e-5e15c83affdf",
+  "shortName": "feel",
+  "longName": "feel",
+  "companyName": "MakeAwesomeHappen",
+  "versionCode": 1,
+  "versionLabel": "1.0",
+  "watchapp": {
+    "watchface": false
+  },
+  "appKeys": {
+    "KEY_TEMPERATURE": 0,
+    "KEY_HUMIDITY": 1
+  },
+  "resources": {
+    "media": []
+  }
+}
