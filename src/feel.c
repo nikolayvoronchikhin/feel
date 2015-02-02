@@ -64,8 +64,8 @@ static void inbox_received_callback(DictionaryIterator *iterator, void *context)
   static char t_layer_buffer[8];
   static char dp_layer_buffer[8];
   Tuple *t = dict_read_first(iterator);
-  while(t != NULL) {
-    switch(t->key) {
+  while (t != NULL) {
+    switch (t->key) {
       case KEY_TEMPERATURE:
         snprintf(temperature_buffer, sizeof(temperature_buffer), "%dC", (int)t->value->int32);
         break;

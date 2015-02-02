@@ -20,10 +20,10 @@ function locationSuccess(pos) {
       console.log("Humidity " + humidity);
       var dewpoint = (function() {
         var b, c;
-        if( temperature >= 0 && temperature <= 50 ) {
+        if (temperature >= 0 && temperature <= 50) {
           b = 17.966; c = 247.15;
         }
-        if( temperature >= -40 && temperature <= 0 ) {
+        if (temperature >= -40 && temperature <= 0) {
           b = 17.368; c = 238.88;
         }
         return (c*(Math.log(humidity/100)+((b*temperature)/(c+temperature))))/(b-(Math.log(humidity/100)+((b*temperature)/(c+temperature))));
