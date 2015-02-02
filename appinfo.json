@@ -10,7 +10,7 @@
   },
   "appKeys": {
     "KEY_TEMPERATURE": 0,
-    "KEY_HUMIDITY": 1
+    "KEY_DEWPOINT": 1
   },
   "resources": {
     "media": []

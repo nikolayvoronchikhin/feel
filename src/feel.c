@@ -1,6 +1,6 @@
 #include <pebble.h>
 #define KEY_TEMPERATURE 0
-#define KEY_HUMIDITY 1
+#define KEY_DEWPOINT 1
 
 static Window *window;
 static TextLayer *t_layer;
@@ -60,7 +60,7 @@ static void window_unload(Window *window) {
 
 static void inbox_received_callback(DictionaryIterator *iterator, void *context) {
   static char temperature_buffer[8];
-  static char humidity_buffer[8];
+  static char dewpoint_buffer[8];
   static char t_layer_buffer[8];
   static char dp_layer_buffer[8];
   Tuple *t = dict_read_first(iterator);
@@ -69,8 +69,8 @@ static void inbox_received_callback(DictionaryIterator *iterator, void *context)
       case KEY_TEMPERATURE:
         snprintf(temperature_buffer, sizeof(temperature_buffer), "%dC", (int)t->value->int32);
         break;
-      case KEY_HUMIDITY:
-        snprintf(humidity_buffer, sizeof(humidity_buffer), "%d%%", (int)t->value->int32);
+      case KEY_DEWPOINT:
+        snprintf(dewpoint_buffer, sizeof(dewpoint_buffer), "%d%%", (int)t->value->int32);
         break;
       default:
         APP_LOG(APP_LOG_LEVEL_ERROR, "Key %d not recognised!", (int)t->key);
@@ -81,7 +81,7 @@ static void inbox_received_callback(DictionaryIterator *iterator, void *context)
   // construct full string, display string
   snprintf(t_layer_buffer, sizeof(t_layer_buffer), "%s", temperature_buffer);
   text_layer_set_text(t_layer, t_layer_buffer);
-  snprintf(dp_layer_buffer, sizeof(dp_layer_buffer), "%s", humidity_buffer);
+  snprintf(dp_layer_buffer, sizeof(dp_layer_buffer), "%s", dewpoint_buffer);
   text_layer_set_text(dp_layer, dp_layer_buffer);
 }
 
