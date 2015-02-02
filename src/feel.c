@@ -33,15 +33,16 @@ static void tick_handler(struct tm *tick_time, TimeUnits units_changed) {
 
 static void window_load(Window *window) {
   Layer *window_layer = window_get_root_layer(window);
+  GRect bounds = layer_get_bounds(window_layer);
   // temperature-layer
-  t_layer = text_layer_create(GRect(0, 30, 144, 50));
+  t_layer = text_layer_create(GRect(0, 30, bounds.size.w, bounds.size.h));
   text_layer_set_background_color(t_layer, GColorClear);
   text_layer_set_text_color(t_layer, GColorBlack);
   text_layer_set_text_alignment(t_layer, GTextAlignmentCenter);
   t_font = fonts_get_system_font(FONT_KEY_BITHAM_42_LIGHT);
   text_layer_set_font(t_layer,t_font);
   layer_add_child(window_layer,text_layer_get_layer(t_layer));
-  dp_layer = text_layer_create(GRect(0, 75, 144, 50));
+  dp_layer = text_layer_create(GRect(0, 75, bounds.size.w, bounds.size.h));
   // dew-point layer
   text_layer_set_background_color(dp_layer, GColorClear);
   text_layer_set_text_color(dp_layer, GColorBlack);
