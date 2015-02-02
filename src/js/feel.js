@@ -18,7 +18,7 @@ function locationSuccess(pos) {
       console.log("Temperature " + temperature);
       var humidity = json.main.humidity;
       console.log("Humidity " + humidity);
-      var dewpoint = function(temperature,humidity) {
+      var dewpoint = (function() {
         var b, c;
         if( temperature >= 0 && temperature <= 50 ) {
           b = 17.966; c = 247.15;
@@ -26,9 +26,8 @@ function locationSuccess(pos) {
         if( temperature >= -40 && temperature <= 0 ) {
           b = 17.368; c = 238.88;
         }
-        return Math.round(
-          (c*(Math.log(humidity/100)+((b*temperature)/(c+temperature))))/(b-(Math.log(humidity/100)+((b*temperature)/(c+temperature)))));
-      };
+        return (c*(Math.log(humidity/100)+((b*temperature)/(c+temperature))))/(b-(Math.log(humidity/100)+((b*temperature)/(c+temperature))));
+      })();
       console.log("Dew-point " + dewpoint);
       var dictionary = {
         "KEY_TEMPERATURE": temperature,

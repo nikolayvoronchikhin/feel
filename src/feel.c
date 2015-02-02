@@ -70,7 +70,7 @@ static void inbox_received_callback(DictionaryIterator *iterator, void *context)
         snprintf(temperature_buffer, sizeof(temperature_buffer), "%dC", (int)t->value->int32);
         break;
       case KEY_DEWPOINT:
-        snprintf(dewpoint_buffer, sizeof(dewpoint_buffer), "%d%%", (int)t->value->int32);
+        snprintf(dewpoint_buffer, sizeof(dewpoint_buffer), "%dC", (int)t->value->int32);
         break;
       default:
         APP_LOG(APP_LOG_LEVEL_ERROR, "Key %d not recognised!", (int)t->key);
