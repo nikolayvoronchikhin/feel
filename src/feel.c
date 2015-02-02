@@ -39,11 +39,11 @@ static void window_load(Window *window) {
   text_layer_set_background_color(t_layer, GColorClear);
   text_layer_set_text_color(t_layer, GColorBlack);
   text_layer_set_text_alignment(t_layer, GTextAlignmentCenter);
-  t_font = fonts_get_system_font(FONT_KEY_BITHAM_42_LIGHT);
+  t_font = fonts_get_system_font(FONT_KEY_BITHAM_42_BOLD);
   text_layer_set_font(t_layer,t_font);
   layer_add_child(window_layer,text_layer_get_layer(t_layer));
-  dp_layer = text_layer_create(GRect(0, 75, bounds.size.w, bounds.size.h));
   // dew-point layer
+  dp_layer = text_layer_create(GRect(0, 75, bounds.size.w, bounds.size.h));
   text_layer_set_background_color(dp_layer, GColorClear);
   text_layer_set_text_color(dp_layer, GColorBlack);
   text_layer_set_text_alignment(dp_layer, GTextAlignmentCenter);
