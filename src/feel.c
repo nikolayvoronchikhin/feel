@@ -34,11 +34,11 @@ static void tick_handler(struct tm *tick_time, TimeUnits units_changed) {
 static void window_load(Window *window) {
   Layer *window_layer = window_get_root_layer(window);
   // temperature-layer
-  t_layer = text_layer_create(GRect(0, 40, 144, 35));
+  t_layer = text_layer_create(GRect(0, 30, 144, 50));
   text_layer_set_background_color(t_layer, GColorClear);
   text_layer_set_text_color(t_layer, GColorBlack);
   text_layer_set_text_alignment(t_layer, GTextAlignmentCenter);
-  t_font = fonts_get_system_font(FONT_KEY_BITHAM_30_BLACK);
+  t_font = fonts_get_system_font(FONT_KEY_BITHAM_42_LIGHT);
   text_layer_set_font(t_layer,t_font);
   layer_add_child(window_layer,text_layer_get_layer(t_layer));
   dp_layer = text_layer_create(GRect(0, 75, 144, 50));
@@ -46,7 +46,7 @@ static void window_load(Window *window) {
   text_layer_set_background_color(dp_layer, GColorClear);
   text_layer_set_text_color(dp_layer, GColorBlack);
   text_layer_set_text_alignment(dp_layer, GTextAlignmentCenter);
-  dp_font = fonts_get_system_font(FONT_KEY_BITHAM_30_BLACK);
+  dp_font = fonts_get_system_font(FONT_KEY_BITHAM_42_LIGHT);
   text_layer_set_font(dp_layer,dp_font);
   layer_add_child(window_layer,text_layer_get_layer(dp_layer));
   update_time();
