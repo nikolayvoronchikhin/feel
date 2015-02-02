@@ -3,10 +3,10 @@
 #define KEY_HUMIDITY 1
 
 static Window *window;
-static TextLayer *time_layer;
-static GFont *time_font;
-static TextLayer *weather_layer;
-static GFont *weather_font;
+static TextLayer *t_layer;
+static GFont *t_font;
+static TextLayer *dp_layer;
+static GFont *dp_font;
 
 static void update_time() {
   time_t tmp = time(NULL);
@@ -19,7 +19,6 @@ static void update_time() {
   else {
     strftime(buffer, sizeof("00:00"), "%I:%M", tick_time);
   } // 12h time
-  text_layer_set_text(time_layer, buffer); // display time
 }
 
 static void tick_handler(struct tm *tick_time, TimeUnits units_changed) {
@@ -34,35 +33,35 @@ static void tick_handler(struct tm *tick_time, TimeUnits units_changed) {
 
 static void window_load(Window *window) {
   Layer *window_layer = window_get_root_layer(window);
-  // GRect bounds = layer_get_bounds(window_layer);
-  // time-layer
-  time_layer = text_layer_create(GRect(0, 75, 144, 50));
-  text_layer_set_background_color(time_layer, GColorClear);
-  text_layer_set_text_color(time_layer, GColorBlack);
-  text_layer_set_text_alignment(time_layer, GTextAlignmentCenter);
-  time_font = fonts_get_system_font(FONT_KEY_GOTHIC_24);
-  text_layer_set_font(time_layer,time_font);
-  layer_add_child(window_layer,text_layer_get_layer(time_layer));
-  // weather-layer
-  weather_layer = text_layer_create(GRect(0, 40, 144, 35));
-  text_layer_set_background_color(weather_layer, GColorClear);
-  text_layer_set_text_color(weather_layer, GColorBlack);
-  text_layer_set_text_alignment(weather_layer, GTextAlignmentCenter);
-  weather_font = fonts_get_system_font(FONT_KEY_GOTHIC_28);
-  text_layer_set_font(weather_layer,weather_font);
-  layer_add_child(window_layer,text_layer_get_layer(weather_layer));
+  // temperature-layer
+  t_layer = text_layer_create(GRect(0, 40, 144, 35));
+  text_layer_set_background_color(t_layer, GColorClear);
+  text_layer_set_text_color(t_layer, GColorBlack);
+  text_layer_set_text_alignment(t_layer, GTextAlignmentCenter);
+  t_font = fonts_get_system_font(FONT_KEY_BITHAM_30_BLACK);
+  text_layer_set_font(t_layer,t_font);
+  layer_add_child(window_layer,text_layer_get_layer(t_layer));
+  dp_layer = text_layer_create(GRect(0, 75, 144, 50));
+  // dew-point layer
+  text_layer_set_background_color(dp_layer, GColorClear);
+  text_layer_set_text_color(dp_layer, GColorBlack);
+  text_layer_set_text_alignment(dp_layer, GTextAlignmentCenter);
+  dp_font = fonts_get_system_font(FONT_KEY_BITHAM_30_BLACK);
+  text_layer_set_font(dp_layer,dp_font);
+  layer_add_child(window_layer,text_layer_get_layer(dp_layer));
   update_time();
 }
 
 static void window_unload(Window *window) {
-  text_layer_destroy(time_layer);
-  text_layer_destroy(weather_layer);
+  text_layer_destroy(dp_layer);
+  text_layer_destroy(t_layer);
 }
 
 static void inbox_received_callback(DictionaryIterator *iterator, void *context) {
   static char temperature_buffer[8];
   static char humidity_buffer[8];
-  static char weather_layer_buffer[32];
+  static char t_layer_buffer[8];
+  static char dp_layer_buffer[8];
   Tuple *t = dict_read_first(iterator);
   while(t != NULL) {
     switch(t->key) {
@@ -79,8 +78,10 @@ static void inbox_received_callback(DictionaryIterator *iterator, void *context)
     t = dict_read_next(iterator);
   }
   // construct full string, display string
-  snprintf(weather_layer_buffer, sizeof(weather_layer_buffer), "%s\t%s", temperature_buffer, humidity_buffer);
-  text_layer_set_text(weather_layer, weather_layer_buffer);
+  snprintf(t_layer_buffer, sizeof(t_layer_buffer), "%s", temperature_buffer);
+  text_layer_set_text(t_layer, t_layer_buffer);
+  snprintf(dp_layer_buffer, sizeof(dp_layer_buffer), "%s", humidity_buffer);
+  text_layer_set_text(dp_layer, dp_layer_buffer);
 }
 
 static void inbox_dropped_callback(AppMessageResult reason, void *context) {
