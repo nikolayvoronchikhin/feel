@@ -1,0 +1,120 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="feel by garyduong">
+    <meta name="author" content="Gary Duong">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <!-- Note there is no responsive meta tag here -->
+
+    <link rel="icon" href="static/favicon.ico">
+
+    <title>feel | garyduong</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="static/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="static/sticky-footer-navbar.css" rel="stylesheet">
+
+    <!-- Font Awesome icons -->
+    <link rel="stylesheet" href="static/Font-Awesome/css/font-awesome.min.css">
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+
+  <body>
+
+    <!-- Fixed navbar -->
+    <nav class="navbar navbar-default navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="/">garyduong.net</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+          <!-- <ul class="nav navbar-nav">
+            <li class="active"><a href="#"></a></li>
+            <li><a href="#"></a></li>
+            <li><a href="#"></a></li>
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Dropdown <span class="caret"></span></a>
+              <ul class="dropdown-menu" role="menu">
+                <li><a href="#">Action</a></li>
+                <li><a href="#">Another action</a></li>
+                <li><a href="#">Something else here</a></li>
+                <li class="divider"></li>
+                <li class="dropdown-header">Nav header</li>
+                <li><a href="#">Separated link</a></li>
+                <li><a href="#">One more separated link</a></li>
+              </ul>
+            </li>
+          </ul> -->
+          <!-- <form class="navbar-form navbar-left" role="search">
+            <div class="form-group">
+              <input type="text" class="form-control" placeholder="Search">
+            </div>
+            <button type="submit" class="btn btn-default">Submit</button>
+          </form> -->
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="https://github.com/garyduong/feel"><button type="button" class="btn btn-lg btn-success">View on GitHub</a></li>
+              <li><a href="https://github.com/garyduong/feel/zipball/master"><button type="button" class="btn btn-lg btn-success">Download ZIP</a></li>
+              <li><a href="https://github.com/garyduong/feel/tarball/master"><button type="button" class="btn btn-lg btn-success">Download TAR.GZ</a></li>
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </nav>
+
+    <div class="container">
+
+      <div class="page-header">
+        <p class="lead">Pebble watch-face to check comfort-level of current weather conditions.</p>
+      </div>
+
+      <div class="row">
+        <div class="col-xs-12 col-sm-6 col-lg-8">
+<p>feel is a simple weather-status watchface. Useful for active atheletes, meteorologists, weather nerds, and anyone who wants to know why the weather has 'felt' a certain way.</p>
+
+<p>Often times we perceive the weather based on how hot or how cold the temperature is, but certain environmental conditions make the temperature <em>feel</em> different. In particular, the <a href="https://en.wikipedia.org/wiki/Dew_point#Relationship_to_human_comfort">dew-point</a> is an indicator of how saturated the air is with water vapour.</p>
+
+<p>For instance, on a typical summer day in San Francisco, the temperature is 21C (70F) with a dew-point of 14C (57F). Feels comfortable. Compare this to New York, with a temperature of 29C (84F) and dew-point of 21C (70F). Rather uncomfortable, isn't it?</p>
+
+<ul>
+<li>If the air is saturated, then less evaporation from the skin will have occurred, and the air feels 'heavier'.</li>
+<li>If the air isn't saturated as much, more evaporation from the skin will have occurred, and the air feels 'lighter'.</li>
+</ul>
+
+<p>feel takes the weather data, courtesy of <a href="http://openweathermap.org">OpenWeatherMap</a> and extracts the temperature and relative humidity. Through a <a href="https://en.wikipedia.org/wiki/Dew_point#Calculating_the_dew_point">rather complicated formula</a>, the dew-point is computed using the temperature and <a href="https://en.wikipedia.org/wiki/Relative_humidity">relative humidity</a>. Use it for a week and learn something about how the weather works.</p>
+        </div>
+      </div>
+
+    </div> <!-- /container -->
+
+    <footer class="footer">
+      <div class="container">
+        <p class="text-muted">&copy; <?php echo date("Y") ?>. Gary Duong. All rights reserved.</p>
+      </div>
+    </footer>
+
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="static/bootstrap/dist/js/bootstrap.min.js"></script>
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <script src="../../assets/js/ie10-viewport-bug-workaround.js"></script>
+  </body>
+</html>
