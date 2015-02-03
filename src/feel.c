@@ -3,10 +3,12 @@
 #define KEY_DEWPOINT 1
 
 static Window *window;
-static TextLayer *t_layer;
-static GFont *t_font;
-static TextLayer *dp_layer;
-static GFont *dp_font;
+static BitmapLayer *background_layer;
+static GBitmap *background_bitmap;
+static TextLayer *temperature_layer;
+static GFont *temperature_font;
+static TextLayer *dewpoint_layer;
+static GFont *dewpoint_font;
 
 static void update_time() {
   time_t tmp = time(NULL);
@@ -34,35 +36,42 @@ static void tick_handler(struct tm *tick_time, TimeUnits units_changed) {
 static void window_load(Window *window) {
   Layer *window_layer = window_get_root_layer(window);
   GRect bounds = layer_get_bounds(window_layer);
+  // load background
+  background_bitmap = gbitmap_create_with_resource(RESOURCE_ID_IMAGE_BACKGROUND);
+  background_layer = bitmap_layer_create(GRect(0, 0, bounds.size.w, bounds.size.h));
+  bitmap_layer_set_bitmap(background_layer, background_bitmap);
+  layer_add_child(window_layer, bitmap_layer_get_layer(background_layer));
   // temperature-layer
-  t_layer = text_layer_create(GRect(0, 30, bounds.size.w, bounds.size.h));
-  text_layer_set_background_color(t_layer, GColorClear);
-  text_layer_set_text_color(t_layer, GColorBlack);
-  text_layer_set_text_alignment(t_layer, GTextAlignmentCenter);
-  t_font = fonts_get_system_font(FONT_KEY_BITHAM_42_BOLD);
-  text_layer_set_font(t_layer,t_font);
-  layer_add_child(window_layer,text_layer_get_layer(t_layer));
+  temperature_layer = text_layer_create(GRect(0, 30, bounds.size.w, bounds.size.h));
+  text_layer_set_background_color(temperature_layer, GColorBlack);
+  text_layer_set_text_color(temperature_layer, GColorClear);
+  text_layer_set_text_alignment(temperature_layer, GTextAlignmentCenter);
+  temperature_font = fonts_get_system_font(FONT_KEY_BITHAM_42_BOLD);
+  text_layer_set_font(temperature_layer, temperature_font);
+  layer_add_child(window_layer, text_layer_get_layer(temperature_layer));
   // dew-point layer
-  dp_layer = text_layer_create(GRect(0, 75, bounds.size.w, bounds.size.h));
-  text_layer_set_background_color(dp_layer, GColorClear);
-  text_layer_set_text_color(dp_layer, GColorBlack);
-  text_layer_set_text_alignment(dp_layer, GTextAlignmentCenter);
-  dp_font = fonts_get_system_font(FONT_KEY_BITHAM_42_LIGHT);
-  text_layer_set_font(dp_layer,dp_font);
-  layer_add_child(window_layer,text_layer_get_layer(dp_layer));
+  dewpoint_layer = text_layer_create(GRect(0, 75, bounds.size.w, bounds.size.h));
+  text_layer_set_background_color(dewpoint_layer, GColorBlack);
+  text_layer_set_text_color(dewpoint_layer, GColorClear);
+  text_layer_set_text_alignment(dewpoint_layer, GTextAlignmentCenter);
+  dewpoint_font = fonts_get_system_font(FONT_KEY_BITHAM_42_LIGHT);
+  text_layer_set_font(dewpoint_layer, dewpoint_font);
+  layer_add_child(window_layer, text_layer_get_layer(dewpoint_layer));
   update_time();
 }
 
 static void window_unload(Window *window) {
-  text_layer_destroy(dp_layer);
-  text_layer_destroy(t_layer);
+  text_layer_destroy(dewpoint_layer);
+  text_layer_destroy(temperature_layer);
+  gbitmap_destroy(background_bitmap);
+  bitmap_layer_destroy(background_layer);
 }
 
 static void inbox_received_callback(DictionaryIterator *iterator, void *context) {
   static char temperature_buffer[8];
   static char dewpoint_buffer[8];
-  static char t_layer_buffer[8];
-  static char dp_layer_buffer[8];
+  static char temperature_layer_buffer[8];
+  static char dewpoint_layer_buffer[8];
   Tuple *t = dict_read_first(iterator);
   while (t != NULL) {
     switch (t->key) {
@@ -79,10 +88,10 @@ static void inbox_received_callback(DictionaryIterator *iterator, void *context)
     t = dict_read_next(iterator);
   }
   // construct full string, display string
-  snprintf(t_layer_buffer, sizeof(t_layer_buffer), "%s", temperature_buffer);
-  text_layer_set_text(t_layer, t_layer_buffer);
-  snprintf(dp_layer_buffer, sizeof(dp_layer_buffer), "%s", dewpoint_buffer);
-  text_layer_set_text(dp_layer, dp_layer_buffer);
+  snprintf(temperature_layer_buffer, sizeof(temperature_layer_buffer), "%s", temperature_buffer);
+  text_layer_set_text(temperature_layer, temperature_layer_buffer);
+  snprintf(dewpoint_layer_buffer, sizeof(dewpoint_layer_buffer), "%s", dewpoint_buffer);
+  text_layer_set_text(dewpoint_layer, dewpoint_layer_buffer);
 }
 
 static void inbox_dropped_callback(AppMessageResult reason, void *context) {
